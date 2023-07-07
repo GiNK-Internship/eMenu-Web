@@ -1,0 +1,11 @@
+nav.navbar {
+    margin-left: 16px;
+    margin-right: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+#resto {
+    font-size: 18px;
+    font-weight: bold;
+}
