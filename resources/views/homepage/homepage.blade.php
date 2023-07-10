@@ -39,7 +39,7 @@
                                 <img src="assets/img/banner/burger.jpg" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item">
-                                <img src="assets/img/banner/burger.jpg" class="d-block w-100" alt="...">
+                                <img src="assets/img/banner/pizza.jpg" class="d-block w-100" alt="...">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -69,7 +69,7 @@
         </div>
     </section>
 
-    {{-- Button Group --}}
+    {{-- Button Group / Filter --}}
     <ul class="nav nav-pills mb-3 horizontal-scroll flex-nowrap overflow-auto" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="pills-makanan-tab" data-bs-toggle="pill" data-bs-target="#pills-makanan"
@@ -95,19 +95,72 @@
 
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-makanan" role="tabpanel" aria-labelledby="pills-makanan-tab"
-            tabindex="0">...</div>
-        <div class="tab-pane fade" id="pills-pastry" role="tabpanel" aria-labelledby="pills-pastry-tab" tabindex="0">
-            ...</div>
-        <div class="tab-pane fade" id="pills-bread" role="tabpanel" aria-labelledby="pills-bread-tab" tabindex="0">
-            ...</div>
-        <div class="tab-pane fade" id="pills-minuman" role="tabpanel" aria-labelledby="pills-minuman-tab"
-            tabindex="0">...</div>
-        <div class="tab-pane fade" id="pills-camilan" role="tabpanel" aria-labelledby="pills-camilan-tab"
-            tabindex="0">...</div>
-    </div>
+            tabindex="0">
+            {{-- Cardview --}}
+            <div class="card-container">
+                <div class="card">
+                    <img src="assets/img/banner/burger.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Burger Bangor</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Burger terenak satu korpri</h6>
+                        <h5 class="card-text">Rp 25.000</h5>
+                        <div style="display: flex; justify-content: center;">
+                            <a id=addButton href="#" class="btn btn-success">Tambah</a>
+                        </div>
+                    </div>
+                </div>
 
-    {{-- Filter and Cardview --}}
-    <section>
-        ini section 2
-    </section>
-@endsection
+                <div class="card">
+                    <img src="assets/img/banner/pizza.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Pizza Tasty</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Pizza lezat dengan berbagai pilihan topping</h6>
+                        <h5 class="card-text">Rp 30.000</h5>
+                        <div style="display: flex; justify-content: center;">
+                            <a id=addButton href="#" class="btn btn-success">Tambah</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="assets/img/banner/pizza.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Pizza Tasty</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Pizza lezat dengan berbagai pilihan topping</h6>
+                        <h5 class="card-text">Rp 30.000</h5>
+                        <div style="display: flex; justify-content: center;">
+                            <a id=addButton href="#" class="btn btn-success">Tambah</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="assets/img/banner/burger.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Burger Bangor</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Burger terenak satu korpri</h6>
+                        <h5 class="card-text">Rp 25.000</h5>
+                        <div style="display: flex; justify-content: center;">
+                            <a id=addButton href="#" class="btn btn-success">Tambah</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-pastry" role="tabpanel" aria-labelledby="pills-pastry-tab"
+                tabindex="0">
+                ...</div>
+            <div class="tab-pane fade" id="pills-bread" role="tabpanel" aria-labelledby="pills-bread-tab"
+                tabindex="0">
+                ...</div>
+            <div class="tab-pane fade" id="pills-minuman" role="tabpanel" aria-labelledby="pills-minuman-tab"
+                tabindex="0">...</div>
+            <div class="tab-pane fade" id="pills-camilan" role="tabpanel" aria-labelledby="pills-camilan-tab"
+                tabindex="0">...</div>
+        </div>
+
+        {{-- Apa aja --}}
+        <section>
+            ini section 2
+        </section>
+    @endsection
