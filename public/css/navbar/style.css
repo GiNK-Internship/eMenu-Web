@@ -5,7 +5,24 @@ nav.navbar {
     align-items: center;
 }
 
+.navbar-toggler {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+}
+
+.navbar-toggler-icon {
+    color: #323232;
+}
+
+.navbar-brand img {
+    width: 40px;
+    height: auto;
+}
+
 #resto {
+    justify-content: center;
+    align-items: center;
     font-size: 18px;
     font-weight: bold;
 }

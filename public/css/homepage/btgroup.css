@@ -1,0 +1,16 @@
+.nav {
+    padding-left: 16px;
+    padding-right: 16px;
+    font-weight: bold;
+}
+
+.tab-content {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #EB7D23;
+    color: white;
+    font-weight: bold;
+}

@@ -2,29 +2,39 @@
     padding: 16px;
 }
 
+#topSection {
+    background: linear-gradient(to bottom, #55853A 90%, #FFFFFF 90%);
+}
+
 .circle {
     width: 76px;
     height: 76px;
     border-radius: 50%;
-    border: 1px solid #000000;
+    border: 2px solid #EB7D23;
     background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
     font-weight: bold;
+    color: #EB7D23;
+    background-color: #FBF7F1;
 }
+
 #welcome {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
+    color: #FFFFFF;
+    ;
 }
 
 #noTable {
-    font-size: 24px;
+    font-size: 35px;
     font-weight: bold;
 }
 
 #promotions {
+    color: #FFFFFF;
     font-size: 18px;
     font-weight: bold;
 }
@@ -38,6 +48,11 @@
 }
 
 .carousel-inner img {
+    object-fit: cover;
     width: 320px;
     height: 168px;
+}
+
+.nav-link:not(.active) {
+    color: black;
 }

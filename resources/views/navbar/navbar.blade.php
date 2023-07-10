@@ -17,11 +17,11 @@
     <!-- Image and text -->
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="assets/img/logo.svg" width="40" height="40" class="d-inline-block align-top"
+            <img src="assets/img/logo.svg" class="d-inline-block align-top"
                 alt="">
         </a>
         <a class="navbar-brand mx-auto" href="#">
-            <span id=resto>Ini Resto</span>
+            <span id=resto>Nama Toko</span>
         </a>
 
         {{-- Humberger Button --}}
