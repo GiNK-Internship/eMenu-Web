@@ -1,6 +1,6 @@
 nav.navbar {
-    margin-left: 16px;
-    margin-right: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
     justify-content: center;
     align-items: center;
 }
@@ -21,6 +21,7 @@ nav.navbar {
 }
 
 #resto {
+    margin-left: -24px;
     justify-content: center;
     align-items: center;
     font-size: 18px;

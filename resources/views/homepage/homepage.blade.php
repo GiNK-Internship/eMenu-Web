@@ -159,8 +159,13 @@
                 tabindex="0">...</div>
         </div>
 
-        {{-- Apa aja --}}
-        <section>
-            ini section 2
-        </section>
+        {{-- Floating Button --}}
+        <a href="#" class="float">
+            <i class="fa fa-shopping-cart my-float" aria-hidden="true">
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    1
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </i>
+        </a>
     @endsection

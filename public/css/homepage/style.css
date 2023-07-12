@@ -63,18 +63,42 @@
 .card {
     flex: 0 0 calc(50% - 10px);
     background-color: #fbf7f1;
+    border: none;
+    border-color: transparent;
     border-radius: 16px;
     overflow: visible !important;
-    margin-bottom: 66px;
+    margin-bottom: 76px;
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
     -ms-border-radius: 16px;
     -o-border-radius: 16px;
 }
 
+.card-img-top {
+    object-fit: cover;
+    height: 132px;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .card-img-top {
+        height: 300px;
+        width: 100%;
+    }
+}
+
 .card-body {
     position: relative;
     z-index: 1;
+}
+
+.card-subtitle {
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .card .btn {
@@ -93,6 +117,14 @@
     -o-border-radius: 16px;
 }
 
+.card-title {
+    font-weight: 600;
+}
+
+.card-text {
+    font-weight: 600;
+}
+
 .btn-success {
     background-color: #55853a;
     color: white;
@@ -107,4 +139,33 @@
     align-items: center;
     height: 40px;
     width: 100%;
+}
+
+/* Floating Button */
+.float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #fbf7f1;
+    color: #fff;
+    border-radius: 50px;
+    text-align: center;
+    z-index: 10;
+}
+
+.my-float {
+    margin-top: 22px;
+    color: #55853a;
+    transform: scale(1.7);
+    -webkit-transform: scale(1.7);
+    -moz-transform: scale(1.7);
+    -ms-transform: scale(1.7);
+    -o-transform: scale(1.7);
+}
+
+.badge {
+    font-size: 6px;
+    padding: 2px 4px;
 }

@@ -17,11 +17,10 @@
     <!-- Image and text -->
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="assets/img/logo.svg" class="d-inline-block align-top"
-                alt="">
+            <img src="assets/img/logo.svg" class="d-inline-block align-top" alt="">
         </a>
         <a class="navbar-brand mx-auto" href="#">
-            <span id=resto>Nama Toko</span>
+            <span id=resto>Jaya Bakery</span>
         </a>
 
         {{-- Humberger Button --}}
