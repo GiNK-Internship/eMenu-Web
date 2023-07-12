@@ -105,7 +105,7 @@
                         <h6 class="card-subtitle mb-2 text-body-secondary">Burger terenak satu korpri</h6>
                         <h5 class="card-text">Rp 25.000</h5>
                         <div style="display: flex; justify-content: center;">
-                            <a id=addButton href="#" class="btn btn-success">Tambah</a>
+                            <a id=addButton href="{{ route ('detailpage')}}" class="btn btn-success">Tambah</a>
                         </div>
                     </div>
                 </div>

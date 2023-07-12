@@ -158,11 +158,11 @@
 .my-float {
     margin-top: 22px;
     color: #55853a;
-    transform: scale(1.7);
-    -webkit-transform: scale(1.7);
-    -moz-transform: scale(1.7);
-    -ms-transform: scale(1.7);
-    -o-transform: scale(1.7);
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
 }
 
 .badge {

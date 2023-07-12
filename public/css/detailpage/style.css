@@ -1,0 +1,31 @@
+/* Top Text and Image */
+.row .col h2 {
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 12px;
+}
+
+.row {
+    padding: 16px;
+}
+
+.container .row .col img {
+    width: 328px;
+    height: 186px;
+    object-fit: cover;
+    border-radius: 24px;
+    -webkit-border-radius: 24px;
+    -moz-border-radius: 24px;
+    -ms-border-radius: 24px;
+    -o-border-radius: 24px;
+}
+
+/* Column 2 for Detail */
+.row .col h3 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.row .col p {
+    font-size: 16px;
+}
