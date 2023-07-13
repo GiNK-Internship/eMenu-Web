@@ -29,3 +29,29 @@
 .row .col p {
     font-size: 16px;
 }
+
+/* Column 3 for Price and Quantity */
+.row .col #price {
+    padding-top: 4px;
+}
+
+/* Column 4 for Text Area and Add to Cart */
+.no-resize {
+    resize: none;
+}
+
+.btn-success {
+    background-color: #55853a;
+    color: white;
+    margin-top: 16px;
+    font-weight: 500;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+}
