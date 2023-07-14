@@ -105,7 +105,7 @@
                         <h6 class="card-subtitle mb-2 text-body-secondary">Burger terenak satu korpri</h6>
                         <h5 class="card-text">Rp 25.000</h5>
                         <div style="display: flex; justify-content: center;">
-                            <a id=addButton href="{{ route ('detailpage')}}" class="btn btn-success">Tambah</a>
+                            <a id=addButton href="{{ route('detailpage') }}" class="btn btn-success">Tambah</a>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
         </div>
 
         {{-- Floating Button --}}
-        <a href="#" class="float">
+        <a href="{{ route('cartpage') }}" class="float">
             <i class="fa fa-shopping-cart my-float" aria-hidden="true">
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     1

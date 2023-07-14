@@ -67,7 +67,7 @@
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <button type="button" class="btn btn-success">Masukkan Keranjang</button>
+                <a id=addButton href="{{ route('homepage') }}" class="btn btn-success">Masukkan Keranjang</a>
             </div>
         </div>
     </div>
