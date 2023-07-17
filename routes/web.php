@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('homepage.homepage');
+    return view('historypage.historypage');
 });
 
-Route::get('/detailpage', [DetailController::class, 'index']) -> name('detailpage');
-Route::get('/cartpage', [CartController::class, 'index']) -> name('cartpage');
-Route::get('/homepage', [HomeController::class, 'index']) -> name('homepage');
+Route::get('/detailpage', [DetailController::class, 'index'])->name('detailpage');
+Route::get('/cartpage', [CartController::class, 'index'])->name('cartpage');
+Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');

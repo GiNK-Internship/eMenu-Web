@@ -168,3 +168,59 @@
         scale: 0.8;
     }
 }
+
+/* Confirm Section */
+.confirm-section {
+    background-color: #fbf7f1;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+}
+
+.row .confirm-section .col h5 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: -16px;
+    padding-left: 12px;
+    padding-top: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.confirm-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20%;
+    padding: 12px;
+}
+
+.row.confirm-section > .col {
+    flex-basis: 50%;
+}
+
+.btn-success {
+    background-color: #55853a;
+    color: white;
+    margin-top: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    margin-top: -2px;
+    height: 40px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
