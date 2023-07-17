@@ -79,7 +79,23 @@
                         <h5>Total Rp 90.000</h5>
                     </div>
                     <div class="col">
-                        <a id=addButton href="{{ route('homepage') }}" class="btn btn-success">Pesan</a>
+                        <a id=addButton type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Pesan</a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            data-bs-backdrop="static" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <img src="assets/img/emptypage/checklist.svg" class="img-popup" alt="Checklist">
+                                        <div class="image-caption">Pesanan diproses</div>
+                                        <div class="image-caption2">Silahkan Tunggu Pesanan Anda</div>
+                                        <a id=addButton href="{{ route('homepage') }}" class="btn btn-warning">Kembali ke
+                                            Home</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
