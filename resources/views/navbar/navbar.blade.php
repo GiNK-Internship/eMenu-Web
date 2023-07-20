@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>E-Menu</title>
+    <title>BARD Order</title>
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
@@ -20,7 +20,7 @@
             <img src="assets/img/logo.svg" class="d-inline-block align-top" alt="">
         </a>
         <a class="navbar-brand mx-auto" href="#">
-            <span id=resto>Jaya Bakery</span>
+            <span id=resto>BARD Order</span>
         </a>
 
         {{-- Humberger Button --}}
