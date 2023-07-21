@@ -48,14 +48,15 @@
             <div class="col text-center">
                 <a id=addButton href="{{ route('homepage') }}" class="btn btn-success">Masuk</a>
                 <span>
-                    Belum punya kode pin? <a href="{{ route('homepage') }}" class="create-pin-link">Buat kode pin anda disini</a>
+                    Belum punya kode pin? <a href="{{ route('auth') }}" class="create-pin-link">Buat kode pin anda
+                        disini</a>
                 </span>
+            </div>
         </div>
-    </div>
 
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/pincode/pincode.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/pincode/pincode.js') }}"></script>
 </body>
 
 </html>

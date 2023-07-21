@@ -27,3 +27,27 @@ nav.navbar {
     font-size: 18px;
     font-weight: bold;
 }
+
+/* Custom Side Menu */
+.offcanvas {
+    background-color: #fbf7f1;
+}
+
+.offcanvas-title {
+    font-weight: bold;
+}
+
+.fas {
+    padding-right: 16px;
+    margin-left: 16px;
+}
+
+.navbar-nav .nav-item .nav-link.active:hover {
+    background-color: #eb7d23;
+    color: #fff;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
