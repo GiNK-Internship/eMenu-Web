@@ -69,3 +69,14 @@ a.create-pin-link {
     color: #55853a;
     text-decoration: none;
 }
+
+/* Register Page */
+.form-label {
+    margin-top: 36px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-control {
+    border: 1px solid #55853a;
+}

@@ -13,8 +13,9 @@
         {{-- Welcome --}}
         <div class="container">
             <div class="row">
-                <div class="col d-flex align-items-center">
-                    <h2 id=welcome>Welcome!</h2>
+                <div class="col d-flex flex-column">
+                    <h2 id=welcome>Selamat Datang!</h2>
+                    <p id=name>Bayu Nindioko</p>
                 </div>
                 <div class="col d-flex align-items-end justify-content-end">
                     <div class="circle">

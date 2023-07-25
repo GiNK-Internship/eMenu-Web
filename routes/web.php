@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcomepage.welcomepage');
+    return view('registerpage.registerpage');
 });
 
 Route::get('/detailpage', [DetailController::class, 'index'])->name('detailpage');

@@ -33,20 +33,16 @@
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <h3>Masukkan Kode PIN Anda</h3>
-            </div>
-            <div class="w-100"></div>
-            <div class="col">
-                <div class="pin-code">
-                    <input type="number" maxlength="1" autofocus>
-                    <input type="number" maxlength="1">
-                    <input type="number" maxlength="1">
-                    <input type="number" maxlength="1">
-                </div>
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleInputName1" class="form-label">Masukkan Nama Anda</label>
+                        <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp">
+                    </div>
+                </form>
             </div>
             <div class="w-100"></div>
             <div class="col text-center">
-                <a id=addButton href="{{ route('homepage') }}" class="btn btn-success">Masuk</a>
+                <a id=addButton href="{{ route('auth') }}" class="btn btn-success">Masuk</a>
             </div>
         </div>
 
