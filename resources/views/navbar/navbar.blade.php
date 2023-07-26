@@ -18,7 +18,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="assets/img/logo.svg" class="d-inline-block align-top" alt="">
+                <img src="../assets/img/logo.svg" class="d-inline-block align-top" alt="">
             </a>
             <a class="navbar-brand mx-auto" href="#">
                 <span id=resto>BARD</span>
@@ -31,7 +31,7 @@
                 aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <div class="d-flex align-items-center">
-                        <img src="assets/img/logo.svg" alt="BARD Icon" width="40" height="40" class="me-2">
+                        <img src="../assets/img/logo.svg" alt="BARD Icon" width="40" height="40" class="me-2">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">BARD</h5>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -39,14 +39,14 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#"><i
+                            <a class="nav-link active" aria-current="page" href="{{ route('homepage') }}"><i
                                     class="fas fa-home me-1"></i>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#"><i class="fas fa-book-open me-1"></i>Menu Kami</a>
+                            <a class="nav-link active" href="{{ route('homepage') }}"><i class="fas fa-book-open me-1"></i>Menu Kami</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#"><i
+                            <a class="nav-link active" aria-current="page" href="{{ route('historypage') }}"><i
                                     class="fas fa-history me-1"></i>Riwayat Saya</a>
                         </li>
                     </ul>

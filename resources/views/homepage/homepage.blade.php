@@ -62,7 +62,8 @@
                     <div class="col-md-6">
                         <div class="form">
                             <i class="fa fa-search"></i>
-                            <input type="text" class="form-control form-input" placeholder="Search">
+                            <input id="myInput" onkeyup="search()" type="text" class="form-control form-input"
+                                placeholder="Search">
                         </div>
                     </div>
                 </div>
@@ -73,92 +74,71 @@
     {{-- Button Group / Filter --}}
     <ul class="nav nav-pills mb-3 horizontal-scroll flex-nowrap overflow-auto" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-makanan-tab" data-bs-toggle="pill" data-bs-target="#pills-makanan"
-                type="button" role="tab" aria-controls="pills-makanan" aria-selected="true">Makanan</button>
+            <button class="nav-link active" id="pills-semua-tab" data-bs-toggle="pill" data-bs-target="#pills-semua"
+                type="button" role="tab" aria-controls="pills-semua" aria-selected="true">Semua</button>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-pastry-tab" data-bs-toggle="pill" data-bs-target="#pills-pastry"
-                type="button" role="tab" aria-controls="pills-pastry" aria-selected="false">Pastry</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-bread-tab" data-bs-toggle="pill" data-bs-target="#pills-bread" type="button"
-                role="tab" aria-controls="pills-bread" aria-selected="false">Bread</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-minuman-tab" data-bs-toggle="pill" data-bs-target="#pills-minuman"
-                type="button" role="tab" aria-controls="pills-minuman" aria-selected="false">Minuman</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-camilan-tab" data-bs-toggle="pill" data-bs-target="#pills-camilan"
-                type="button" role="tab" aria-controls="pills-camilan" aria-selected="false">Camilan</button>
-        </li>
+        @foreach ($dataCategory as $cat)
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-{{ strtolower($cat['name']) }}-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-{{ strtolower($cat['name']) }}" type="button" role="tab"
+                        aria-controls="pills-{{ strtolower($cat['name']) }}"
+                        aria-selected="false">{{ $cat['name'] }}</button>
+                </li>
+        @endforeach
     </ul>
 
     <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-makanan" role="tabpanel" aria-labelledby="pills-makanan-tab"
+        <div class="tab-pane fade show active" id="pills-semua" role="tabpanel" aria-labelledby="pills-semua-tab"
             tabindex="0">
             {{-- Cardview --}}
             <div class="card-container">
-                <div class="card">
-                    <img src="assets/img/banner/burger.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Burger Bangor</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Burger terenak satu korpri</h6>
-                        <h5 class="card-text">Rp 25.000</h5>
-                        <div style="display: flex; justify-content: center;">
-                            <a id=addButton href="{{ route('detailpage') }}" class="btn btn-success">Tambah</a>
+                @foreach ($data['data'] as $item)
+                    <div class="card">
+                        <img src="assets/img/banner/burger.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $item['name'] }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">{{ $item['deskripsi'] }}</h6>
+                            <h5 class="card-text">@formatPrice($item['price'])</h5>
+                            <div style="display: flex; justify-content: center;">
+                                <a id="addButton" href="{{ route('detailpage/', $item['id']) }}"
+                                    class="btn btn-success">Tambah</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="card">
-                    <img src="assets/img/banner/pizza.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Pizza Tasty</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Pizza lezat dengan berbagai pilihan topping</h6>
-                        <h5 class="card-text">Rp 30.000</h5>
-                        <div style="display: flex; justify-content: center;">
-                            <a id=addButton href="#" class="btn btn-success">Tambah</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="assets/img/banner/pizza.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Pizza Tasty</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Pizza lezat dengan berbagai pilihan topping</h6>
-                        <h5 class="card-text">Rp 30.000</h5>
-                        <div style="display: flex; justify-content: center;">
-                            <a id=addButton href="#" class="btn btn-success">Tambah</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="assets/img/banner/burger.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Burger Bangor</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Burger terenak satu korpri</h6>
-                        <h5 class="card-text">Rp 25.000</h5>
-                        <div style="display: flex; justify-content: center;">
-                            <a id=addButton href="#" class="btn btn-success">Tambah</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
-
-            <div class="tab-pane fade" id="pills-pastry" role="tabpanel" aria-labelledby="pills-pastry-tab"
-                tabindex="0">
-                ...</div>
-            <div class="tab-pane fade" id="pills-bread" role="tabpanel" aria-labelledby="pills-bread-tab"
-                tabindex="0">
-                ...</div>
-            <div class="tab-pane fade" id="pills-minuman" role="tabpanel" aria-labelledby="pills-minuman-tab"
-                tabindex="0">...</div>
-            <div class="tab-pane fade" id="pills-camilan" role="tabpanel" aria-labelledby="pills-camilan-tab"
-                tabindex="0">...</div>
         </div>
+
+        @foreach ($data['data'] as $item)
+            @foreach ($item['kategori'] as $kategori)
+                <div class="tab-pane fade" id="pills-{{ strtolower($kategori['name']) }}" role="tabpanel"
+                    aria-labelledby="pills-{{ strtolower($kategori['name']) }}-tab" tabindex="0">
+                    <!-- Cardview for {{ $kategori['name'] }} items -->
+                    <div class="card-container">
+                        @foreach ($data['data'] as $item)
+                            @foreach ($item['kategori'] as $kat)
+                                @if (strtolower($kat['name']) === strtolower($kategori['name']))
+                                    <div class="card">
+                                        <!-- Card details -->
+                                        <img src="assets/img/banner/burger.jpg" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $item['name'] }}</h5>
+                                            <h6 class="card-subtitle mb-2 text-body-secondary">
+                                                {{ $item['deskripsi'] }}</h6>
+                                            <h5 class="card-text">@formatPrice($item['price'])</h5>
+                                            <div style="display: flex; justify-content: center;">
+                                                <a id="addButton" href="{{ route('detailpage/', $item['id']) }}"
+                                                    class="btn btn-success">Tambah</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        @endforeach
 
         {{-- Floating Button --}}
         <a href="{{ route('cartpage') }}" class="float">
@@ -170,3 +150,23 @@
             </i>
         </a>
     @endsection
+
+    {{-- Search Function --}}
+    <script>
+        function search() {
+            var input, filter;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            cards = document.getElementsByClassName("card")
+            titles = document.getElementsByClassName("card-title");
+
+            for (i = 0; i < cards.length; i++) {
+                a = titles[i];
+                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>

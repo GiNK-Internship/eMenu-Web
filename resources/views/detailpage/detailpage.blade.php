@@ -16,7 +16,7 @@
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <img src="assets/img/banner/burger.jpg" class="d-block w-100" alt="..." />
+                <img src="../assets/img/banner/burger.jpg" class="d-block w-100" alt="..." />
             </div>
         </div>
     </div>
@@ -25,13 +25,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>Burger Bangor</h3>
+                <h3>{{ $data['data']['name'] }}</h3>
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed qu
-                    njknk Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, conscuen adipisci velit, sed qu
-                    njknk</p>
+                <p>{{ $data['data']['deskripsi'] }}</p>
             </div>
         </div>
     </div>
@@ -41,7 +39,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex align-items-center">
-                    <h3 id=price>Rp 25.000</h3>
+                    <h3 id=price>@formatPrice($data['data']['price'])</h3>
                 </div>
             </div>
             <div class="col">

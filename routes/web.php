@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,8 @@ Route::get('/', function () {
     return view('registerpage.registerpage');
 });
 
-Route::get('/detailpage', [DetailController::class, 'index'])->name('detailpage');
+Route::get('/detailpage/{id}', [DetailController::class, 'index'])->name('detailpage/');
 Route::get('/cartpage', [CartController::class, 'index'])->name('cartpage');
 Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');
+Route::get('/historypage', [HistoryController::class, 'index'])->name('historypage');
 Route::get('/auth', [AuthController::class, 'index'])->name('auth');
