@@ -9,10 +9,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $response = Http::get('http://192.168.1.106:8000/api/item');
+        $response = Http::get('http://192.168.1.108:8000/api/item');
         $data = $response->json();
 
-        $responseCategory = Http::get('http://192.168.1.106:8000/api/category');
+        $responseCategory = Http::get('http://192.168.1.108:8000/api/category');
         $dataCategory = $responseCategory->json();
 
         return view('homepage.homepage', [

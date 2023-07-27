@@ -1,19 +1,26 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const minusButton = document.querySelector(".minus");
-    const plusButton = document.querySelector(".plus");
-    const countInput = document.querySelector(".count");
+(function () {
+    console.log("plusMinus.js loaded");
 
-    minusButton.addEventListener("click", function () {
-        let count = parseInt(countInput.value);
-        if (count > 1) {
-            count--;
-            countInput.value = count;
-        }
+    const minusButtons = document.querySelectorAll(".minus");
+    const plusButtons = document.querySelectorAll(".plus");
+    const quantityInputs = document.querySelectorAll(".count");
+
+    function updateQuantity(input, value) {
+        console.log("Updating quantity");
+        input.value = Math.max(parseInt(input.value) + value, 1);
+    }
+
+    minusButtons.forEach((button, index) => {
+        button.addEventListener("click", function () {
+            console.log("Minus button clicked");
+            updateQuantity(quantityInputs[index], -1);
+        });
     });
 
-    plusButton.addEventListener("click", function () {
-        let count = parseInt(countInput.value);
-        count++;
-        countInput.value = count;
+    plusButtons.forEach((button, index) => {
+        button.addEventListener("click", function () {
+            console.log("Plus button clicked");
+            updateQuantity(quantityInputs[index], 1);
+        });
     });
-});
+})();

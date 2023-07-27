@@ -13,64 +13,41 @@
             <div class="col">
                 <h2>Keranjangku</h2>
             </div>
+            <div id="cartList">
+                <!-- Di sini akan ditampilkan daftar pesanan dari Local Storage -->
+            </div>
             <div class="w-100"></div>
-            <div class="col">
-                {{-- List Cart --}}
-                <div class="card dark">
-                    <img src="assets/img/banner/pizza.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div class="text-section">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card's
-                                content.</p>
-                            <div class="row">
-                                <div class="col">
-                                    <h5>Rp 25.000</h5>
+            <template id="card-template">
+                <div class="col">
+                    {{-- List Cart --}}
+                    <div class="card dark">
+                        <img src="assets/img/banner/pizza.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="text-section">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card's
+                                    content.</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="harga">Rp 25.000</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="cta-section">
-                            <div>
-                                <i id="trash-icon" class="fa fa-trash-o" aria-hidden="true"></i>
-                            </div>
-                            <div id="plusminus-container" class="qty mt-5 mt-auto">
-                                <span class="minus">-</span>
-                                <input type="number" class="count" name="qty" value="1">
-                                <span class="plus">+</span>
+                            <div class="cta-section">
+                                <div>
+                                    <i id="trash-icon" class="fa fa-trash-o" aria-hidden="true"></i>
+                                </div>
+                                <div id="plusminus-container" class="qty mt-5 mt-auto">
+                                    <span class="minus">-</span>
+                                    <input type="number" class="count" name="qty" value="1">
+                                    <span class="plus">+</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
 
-            <div class="col">
-                {{-- List Cart --}}
-                <div class="card dark">
-                    <img src="assets/img/banner/pizza.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div class="text-section">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card's
-                                content.</p>
-                            <div class="row">
-                                <div class="col">
-                                    <h5>Rp 25.000</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cta-section">
-                            <div>
-                                <i id="trash-icon" class="fa fa-trash-o" aria-hidden="true"></i>
-                            </div>
-                            <div id="plusminus-container" class="qty mt-5 mt-auto">
-                                <span class="minus">-</span>
-                                <input type="number" class="count" name="qty" value="1">
-                                <span class="plus">+</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {{-- Confirm Section --}}
             <div class="container">
@@ -103,4 +80,44 @@
 
         @section('additional-js')
             <script src="{{ asset('js/plusMinus/plusMinus.js') }}"></script>
+
+            {{-- Read Local DB --}}
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                    const cartListContainer = document.getElementById('cartList');
+
+                    function updateCartList() {
+                        cartListContainer.innerHTML = '';
+                        cartItems.forEach(item => {
+                            const cardTemplate = document.querySelector('#card-template').content.cloneNode(true);
+                            const cardImage = cardTemplate.querySelector('.card-img-top');
+                            const cardTitle = cardTemplate.querySelector('.card-title');
+                            const cardDescription = cardTemplate.querySelector('.card-text');
+                            const cardPrice = cardTemplate.querySelector('.harga');
+                            const trashIcon = cardTemplate.querySelector('.fa-trash-o');
+                            const qtyInput = cardTemplate.querySelector('.count');
+
+                            cardTitle.textContent = `${item.name}`;
+                            cardDescription.textContent = item.notes;
+                            cardPrice.textContent = `Rp ${item.price}`;
+                            qtyInput.value = item.qty;
+
+                            trashIcon.addEventListener('click', () => {
+                                const updatedCartItems = cartItems.filter(cartItem => cartItem.id !== item.id);
+                                localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+                                cartItems.splice(cartItems.findIndex(cartItem => cartItem.id === item.id), 1);
+                                updateCartList();
+                            });
+
+                            cartListContainer.appendChild(cardTemplate);
+                        });
+                    }
+
+                    updateCartList();
+
+                });
+            </script>
+
         @endsection

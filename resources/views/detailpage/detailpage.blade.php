@@ -39,13 +39,13 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex align-items-center">
-                    <h3 id=price>@formatPrice($data['data']['price'])</h3>
+                    <h3 id="price">@formatPrice($data['data']['price'])</h3>
                 </div>
             </div>
             <div class="col">
                 <div id="plusminus-container" class="qty mt-5 mt-auto">
                     <span class="minus">-</span>
-                    <input type="number" class="count" name="qty" value="1">
+                    <input id="qty-bro" type="number" class="count" name="qty" value="1">
                     <span class="plus">+</span>
                 </div>
             </div>
@@ -65,7 +65,8 @@
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <a id=addButton href="{{ route('homepage') }}" class="btn btn-success">Masukkan Keranjang</a>
+                <a id="addToCartButton" href="#" class="btn btn-success" data-name="{{ $data['data']['name'] }}"
+                    data-price="{{ $data['data']['price'] }}">Tambahkan ke Keranjang</a>
             </div>
         </div>
     </div>
@@ -73,4 +74,34 @@
 
 @section('additional-js')
     <script src="{{ asset('js/plusMinus/plusMinus.js') }}"></script>
+
+    {{-- Local DB --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('#addToCartButton');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const name = this.getAttribute('data-name');
+                    const price = this.getAttribute('data-price');
+                    const qtyInput = document.getElementById('qty-bro');
+                    const notesInput = document.getElementById('exampleFormControlTextarea1');
+                    const qty = qtyInput.value;
+                    const notes = notesInput.value;
+
+                    const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                    existingCartItems.push({
+                        name,
+                        price,
+                        qty,
+                        notes
+                    });
+
+                    localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
+
+                    window.location.href = '{{ route('homepage') }}';
+                });
+            });
+        });
+    </script>
 @endsection
