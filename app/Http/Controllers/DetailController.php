@@ -9,7 +9,7 @@ class DetailController extends Controller
 {
     public function index($id)
     {
-        $response = Http::get('http://192.168.1.108:8000/api/detailItem/' . $id . '');
+        $response = Http::get('192.168.1.106:8000/api/items/' . $id . '');
         $data = $response->json();
 
         return view('detailpage.detailpage', ['data' => $data]);

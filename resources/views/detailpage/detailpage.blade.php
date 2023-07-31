@@ -25,11 +25,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>{{ $data['data']['name'] }}</h3>
+                <h3>{{ $data['name'] }}</h3>
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <p>{{ $data['data']['deskripsi'] }}</p>
+                <p>{{ $data['deskripsi'] }}</p>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex align-items-center">
-                    <h3 id="price">@formatPrice($data['data']['price'])</h3>
+                    <h3 id="price">@formatPrice($data['price'])</h3>
                 </div>
             </div>
             <div class="col">
@@ -65,8 +65,8 @@
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <a id="addToCartButton" href="#" class="btn btn-success" data-name="{{ $data['data']['name'] }}"
-                    data-price="{{ $data['data']['price'] }}">Tambahkan ke Keranjang</a>
+                <a id="addToCartButton" href="#" class="btn btn-success" data-name="{{ $data['name'] }}"
+                    data-price="{{ $data['price'] }}">Tambahkan ke Keranjang</a>
             </div>
         </div>
     </div>

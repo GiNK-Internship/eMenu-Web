@@ -46,7 +46,7 @@
                             <a class="nav-link active" href="{{ route('homepage') }}"><i class="fas fa-book-open me-1"></i>Menu Kami</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('historypage') }}"><i
+                            <a class="nav-link active" aria-current="page" href="{{ route('historypage/', 1) }}"><i
                                     class="fas fa-history me-1"></i>Riwayat Saya</a>
                         </li>
                     </ul>

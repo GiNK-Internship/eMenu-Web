@@ -25,5 +25,5 @@ Route::get('/', function () {
 Route::get('/detailpage/{id}', [DetailController::class, 'index'])->name('detailpage/');
 Route::get('/cartpage', [CartController::class, 'index'])->name('cartpage');
 Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');
-Route::get('/historypage', [HistoryController::class, 'index'])->name('historypage');
+Route::get('/historypage/{id}', [HistoryController::class, 'index'])->name('historypage/');
 Route::get('/auth', [AuthController::class, 'index'])->name('auth');

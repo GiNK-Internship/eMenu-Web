@@ -57,8 +57,29 @@
                     </div>
                     <div class="col">
                         <a id=addButton type="button" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Pesan</a>
-                        <!-- Modal -->
+                            data-bs-target="#exampleConfirm">Pesan</a>
+
+                        {{-- Modal Confirm --}}
+                        <div class="modal fade" id="exampleConfirm" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            data-bs-backdrop="static" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="border: none;">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img id="confirm" src="assets/img/emptypage/confirm.svg" class="img-popup"
+                                            alt="Checklist">
+                                        <div class="image-caption22">Apakah Kamu Ingin Memesannya?</div>
+                                        <a id="addButton" type="button" class="btn btn-success" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">Ya, Pesan Sekarang</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Process-->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             data-bs-backdrop="static" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -105,9 +126,11 @@
                             qtyInput.value = item.qty;
 
                             trashIcon.addEventListener('click', () => {
-                                const updatedCartItems = cartItems.filter(cartItem => cartItem.id !== item.id);
+                                const updatedCartItems = cartItems.filter(cartItem => cartItem.id !== item
+                                    .id);
                                 localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-                                cartItems.splice(cartItems.findIndex(cartItem => cartItem.id === item.id), 1);
+                                cartItems.splice(cartItems.findIndex(cartItem => cartItem.id === item.id),
+                                    1);
                                 updateCartList();
                             });
 
@@ -119,5 +142,4 @@
 
                 });
             </script>
-
         @endsection

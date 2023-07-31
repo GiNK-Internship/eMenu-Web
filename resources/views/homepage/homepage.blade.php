@@ -78,23 +78,22 @@
                 type="button" role="tab" aria-controls="pills-semua" aria-selected="true">Semua</button>
         </li>
         @foreach ($dataCategory as $cat)
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-{{ strtolower($cat['name']) }}-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-{{ strtolower($cat['name']) }}" type="button" role="tab"
-                        aria-controls="pills-{{ strtolower($cat['name']) }}"
-                        aria-selected="false">{{ $cat['name'] }}</button>
-                </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-{{ strtolower($cat['name']) }}-tab" data-bs-toggle="pill"
+                    data-bs-target="#pills-{{ strtolower($cat['name']) }}" type="button" role="tab"
+                    aria-controls="pills-{{ strtolower($cat['name']) }}" aria-selected="false">{{ $cat['name'] }}</button>
+            </li>
         @endforeach
     </ul>
 
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-semua" role="tabpanel" aria-labelledby="pills-semua-tab"
             tabindex="0">
-            {{-- Cardview --}}
+            {{-- Cardview for all items --}}
             <div class="card-container">
-                @foreach ($data['data'] as $item)
+                @foreach ($data as $item)
                     <div class="card">
-                        <img src="assets/img/banner/burger.jpg" class="card-img-top" alt="...">
+                        <img src="{{ $item['foto'] }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ $item['name'] }}</h5>
                             <h6 class="card-subtitle mb-2 text-body-secondary">{{ $item['deskripsi'] }}</h6>
@@ -109,64 +108,61 @@
             </div>
         </div>
 
-        @foreach ($data['data'] as $item)
-            @foreach ($item['kategori'] as $kategori)
-                <div class="tab-pane fade" id="pills-{{ strtolower($kategori['name']) }}" role="tabpanel"
-                    aria-labelledby="pills-{{ strtolower($kategori['name']) }}-tab" tabindex="0">
-                    <!-- Cardview for {{ $kategori['name'] }} items -->
-                    <div class="card-container">
-                        @foreach ($data['data'] as $item)
-                            @foreach ($item['kategori'] as $kat)
-                                @if (strtolower($kat['name']) === strtolower($kategori['name']))
-                                    <div class="card">
-                                        <!-- Card details -->
-                                        <img src="assets/img/banner/burger.jpg" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $item['name'] }}</h5>
-                                            <h6 class="card-subtitle mb-2 text-body-secondary">
-                                                {{ $item['deskripsi'] }}</h6>
-                                            <h5 class="card-text">@formatPrice($item['price'])</h5>
-                                            <div style="display: flex; justify-content: center;">
-                                                <a id="addButton" href="{{ route('detailpage/', $item['id']) }}"
-                                                    class="btn btn-success">Tambah</a>
-                                            </div>
+        @foreach ($dataCategory as $cat)
+            <div class="tab-pane fade" id="pills-{{ strtolower($cat['name']) }}" role="tabpanel"
+                aria-labelledby="pills-{{ strtolower($cat['name']) }}-tab" tabindex="0">
+                {{-- Cardview for items in the category --}}
+                <div class="card-container">
+                    @foreach ($data as $item)
+                        @foreach ($item['categories'] as $kategori)
+                            @if ($kategori['name'] === $cat['name'])
+                                <div class="card">
+                                    <img src="{{ $item['foto'] }}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $item['name'] }}</h5>
+                                        <h6 class="card-subtitle mb-2 text-body-secondary">
+                                            {{ $item['deskripsi'] }}</h6>
+                                        <h5 class="card-text">@formatPrice($item['price'])</h5>
+                                        <div style="display: flex; justify-content: center;">
+                                            <a id="addButton" href="{{ route('detailpage/', $item['id']) }}"
+                                                class="btn btn-success">Tambah</a>
                                         </div>
                                     </div>
-                                @endif
-                            @endforeach
+                                </div>
+                            @endif
                         @endforeach
-                    </div>
+                    @endforeach
                 </div>
-            @endforeach
+            </div>
         @endforeach
+    </div>
 
-        {{-- Floating Button --}}
-        <a href="{{ route('cartpage') }}" class="float">
-            <i class="fa fa-shopping-cart my-float" aria-hidden="true">
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    1
-                    <span class="visually-hidden">unread messages</span>
-                </span>
-            </i>
-        </a>
-    @endsection
+    {{-- Floating Button --}}
+    <a href="{{ route('cartpage') }}" class="float">
+        <i class="fa fa-shopping-cart my-float" aria-hidden="true">
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                1
+                <span class="visually-hidden">unread messages</span>
+            </span>
+        </i>
+    </a>
+@endsection
 
-    {{-- Search Function --}}
-    <script>
-        function search() {
-            var input, filter;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            cards = document.getElementsByClassName("card")
-            titles = document.getElementsByClassName("card-title");
+<script>
+    function search() {
+        var input, filter;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        cards = document.getElementsByClassName("card")
+        titles = document.getElementsByClassName("card-title");
 
-            for (i = 0; i < cards.length; i++) {
-                a = titles[i];
-                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    cards[i].style.display = "";
-                } else {
-                    cards[i].style.display = "none";
-                }
+        for (i = 0; i < cards.length; i++) {
+            a = titles[i];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
             }
         }
-    </script>
+    }
+</script>
