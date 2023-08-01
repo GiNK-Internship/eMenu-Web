@@ -3,11 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        return view('welcomepage.auth');
+        $response = Http::get('http://192.168.1.111:8000/api/tables/' . $id . '/reservations/register');
+        $data = $response->json();
+
+        return view('registerpage.registerpage', ['data' => $data]);
+    }
+
+    public function process($id, Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255'
+        ]);
+
+        $response = Http::post('http://192.168.1.111:8000/api/tables/' . $id . '/reservations', $request->all());
+
+        $data = $response->json();
+
+        return view('welcomepage.auth', ['data' => $data]);
+    }
+
+    public function login_request(Request $request)
+    {
+        $validated = $request->validate([
+            'pin' => 'required|numeric',
+            'name' => 'required',
+        ]);
+
+        $pin = $request->input('pin');
+        $name = $request->input('name');
+
+        $response = Http::get('http://192.168.1.111:8000/api/reservations?pin=' . $pin);
+        $reservationData = $response->json();
+
+        $filteredReservations = array_filter($reservationData, function ($reservation) use ($name) {
+            return $reservation['name'] === $name;
+        });
+
+        if (count($filteredReservations) > 0) {
+            return redirect()->route('success-page')->with('message', 'Login successful!');
+        } else {
+            return back()->withErrors(['pin' => 'Invalid name or pin! Please try again.']);
+        }
     }
 }

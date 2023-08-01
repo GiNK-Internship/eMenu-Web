@@ -7,12 +7,15 @@ use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $response = Http::get('http://192.168.1.106:8000/api/items');
+
+        $responseTable = Http::get('');
+
+        $response = Http::get('http://192.168.1.111:8000/api/items');
         $data = $response->json();
 
-        $responseCategory = Http::get('http://192.168.1.106:8000/api/categories');
+        $responseCategory = Http::get('http://192.168.1.111:8000/api/categories');
         $dataCategory = $responseCategory->json();
 
         return view('homepage.homepage', [

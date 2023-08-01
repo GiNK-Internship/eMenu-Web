@@ -18,12 +18,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('registerpage.registerpage');
-});
+Route::get('/register/{id}', [AuthController::class, 'index'])->name('register/');
+Route::post('/register/process/{id}', [AuthController::class, 'process'])->name('register-process/');
+Route::post('/register/welcome', [AuthController::class, 'welcome_pin'])->name('register-welcome');
 
 Route::get('/detailpage/{id}', [DetailController::class, 'index'])->name('detailpage/');
+
 Route::get('/cartpage', [CartController::class, 'index'])->name('cartpage');
-Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');
+
+Route::get('/homepage/{id}', [HomeController::class, 'index'])->name('homepage/');
+
 Route::get('/historypage/{id}', [HistoryController::class, 'index'])->name('historypage/');
-Route::get('/auth', [AuthController::class, 'index'])->name('auth');

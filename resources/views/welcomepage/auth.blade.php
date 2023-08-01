@@ -20,11 +20,15 @@
             </div>
             <div class="w-100"></div>
             <div class="col text-center">
-                <h1>0000</h1>
+                <h1>{{ $data['pin'] }}</h1>
             </div>
             <div class="w-100"></div>
             <div class="col text-center">
-                <a id=addButton href="{{ route('homepage') }}" class="btn btn-success">Masuk</a>
+                <form method="POST" action="{{ route('homepage/', $data['id']) }}">
+                    <input name="pin" hidden type="text" value="{{ $data['pin'] }}">
+                    <input name="name" hidden type="text" value="{{ $data['name'] }}">
+                    <button type="submit" id=addButton class="btn btn-success">Masuk</button>
+                </form>
             </div>
         </div>
     </div>

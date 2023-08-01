@@ -22,7 +22,7 @@
             <div class="w-100"></div>
             <div class="col">
                 <div class="text-end">
-                    <img src="assets/img/logo.svg" alt="Logo">
+                    <img src="../assets/img/logo.svg" alt="Logo">
                 </div>
             </div>
             <div class="col">
@@ -33,17 +33,20 @@
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <form>
+                <form method="POST" action="{{ route('register-process/', $data['id']) }}">
+                    @csrf
                     <div class="mb-3">
                         <label for="exampleInputName1" class="form-label">Masukkan Nama Anda</label>
-                        <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp">
+                        <input name="name" type="text" class="form-control" id="exampleInputName1"
+                            aria-describedby="nameHelp">
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col text-center">
+                        <button type="submit" id=addButton class="btn btn-success">Masuk</button>
                     </div>
                 </form>
             </div>
-            <div class="w-100"></div>
-            <div class="col text-center">
-                <a id=addButton href="{{ route('auth') }}" class="btn btn-success">Masuk</a>
-            </div>
+
         </div>
 
         <script src="{{ asset('js/bootstrap.js') }}"></script>
