@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,10 @@ Route::get('/detailpage/{id}', [DetailController::class, 'index'])->name('detail
 
 Route::get('/cartpage', [CartController::class, 'index'])->name('cartpage');
 
-Route::get('/homepage/{id}', [HomeController::class, 'index'])->name('homepage/');
+Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');
+Route::post('/cart/tambah/{id}', [HomeController::class, 'do_tambah_cart'])->where("id", "[0-9]+")->name('cart/tambah/');
+Route::delete('/cart/remove/{id}', [HomeController::class, 'removeFromCart'])->where("id", "[0-9]+")->name('cart/remove/');
 
 Route::get('/historypage/{id}', [HistoryController::class, 'index'])->name('historypage/');
+
+Route::post('/authcheck/{id}', [AuthController::class, 'login_request'])->name('authcheck/');

@@ -60,13 +60,17 @@
                     <label for="exampleFormControlTextarea1" class="form-label">
                         <h3>Catatan :</h3>
                     </label>
-                    <textarea class="form-control no-resize" id="exampleFormControlTextarea1" rows="5"></textarea>
+                    <textarea name="catatan" class="form-control no-resize" id="exampleFormControlTextarea1" rows="5"></textarea>
                 </div>
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <a id="addToCartButton" href="#" class="btn btn-success" data-name="{{ $data['name'] }}"
-                    data-price="{{ $data['price'] }}">Tambahkan ke Keranjang</a>
+                <form method="POST" action="{{ route('cart/tambah/', $data['id']) }}">
+                    @csrf
+                    <input id="qtyHidden" name="qty" hidden type="text" value="">
+                    <input id="catatanHidden" name="catatan" hidden type="text" value="">
+                    <button id="addToCartButton" class="btn btn-success">Tambahkan ke Keranjang</button>
+                </form>
             </div>
         </div>
     </div>
@@ -74,34 +78,27 @@
 
 @section('additional-js')
     <script src="{{ asset('js/plusMinus/plusMinus.js') }}"></script>
-
-    {{-- Local DB --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const addToCartButtons = document.querySelectorAll('#addToCartButton');
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const name = this.getAttribute('data-name');
-                    const price = this.getAttribute('data-price');
-                    const qtyInput = document.getElementById('qty-bro');
-                    const notesInput = document.getElementById('exampleFormControlTextarea1');
-                    const qty = qtyInput.value;
-                    const notes = notesInput.value;
+        // JavaScript to update the hidden input fields when the form is submitted
+        const addToCartButton = document.getElementById('addToCartButton');
+        const qtyInput = document.getElementById('qty-bro');
+        const catatanTextarea = document.getElementById('exampleFormControlTextarea1');
+        const qtyHiddenInput = document.getElementById('qtyHidden');
+        const catatanHiddenInput = document.getElementById('catatanHidden');
 
-                    const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        addToCartButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
 
-                    existingCartItems.push({
-                        name,
-                        price,
-                        qty,
-                        notes
-                    });
+            // Get the values from the input and textarea
+            const qtyValue = qtyInput.value;
+            const catatanValue = catatanTextarea.value;
 
-                    localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
+            // Update the hidden input fields with the values
+            qtyHiddenInput.value = qtyValue;
+            catatanHiddenInput.value = catatanValue;
 
-                    window.location.href = '{{ route('homepage') }}';
-                });
-            });
+            // Submit the form
+            addToCartButton.closest('form').submit();
         });
     </script>
 @endsection

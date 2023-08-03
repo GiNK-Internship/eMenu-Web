@@ -285,3 +285,8 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.delete-button {
+    border: none;
+    background: transparent;
+}

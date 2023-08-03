@@ -14,46 +14,59 @@
                 <h2>Keranjangku</h2>
             </div>
             <div id="cartList">
-                <!-- Di sini akan ditampilkan daftar pesanan dari Local Storage -->
-            </div>
-            <div class="w-100"></div>
-            <template id="card-template">
-                <div class="col">
-                    {{-- List Cart --}}
-                    <div class="card dark">
-                        <img src="assets/img/banner/pizza.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <div class="text-section">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card's
-                                    content.</p>
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="harga">Rp 25.000</h5>
+                @php
+                    $cartItems = Session::get('cartItems', []);
+                    $total = 0;
+                @endphp
+
+                @foreach ($cartItems as $item)
+                    <div class="col">
+                        {{-- List Cart --}}
+                        <div class="card dark">
+                            <img src="{{ asset('assets/img/banner/pizza.jpg') }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <div class="text-section">
+                                    <h5 class="card-title">{{ $item['name'] }}</h5>
+                                    <p class="card-text">{{ $item['catatan'] }}</p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="harga">@formatPrice($item['price'])</h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="cta-section">
-                                <div>
-                                    <i id="trash-icon" class="fa fa-trash-o" aria-hidden="true"></i>
-                                </div>
-                                <div id="plusminus-container" class="qty mt-5 mt-auto">
-                                    <span class="minus">-</span>
-                                    <input type="number" class="count" name="qty" value="1">
-                                    <span class="plus">+</span>
+                                <div class="cta-section">
+                                    <div>
+                                        <form action="{{ route('cart/remove/', ['id' => $item['id']]) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="delete-button">
+                                                <i class="fa fa-trash-o delete-icon" data-item-id="{{ $item['id'] }}"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div id="plusminus-container" class="qty mt-5 mt-auto">
+                                        <span class="minus">-</span>
+                                        <input type="number" class="count" name="qty"
+                                            data-item-id="{{ $item['id'] }}" value="{{ $item['qty'] }}">
+                                        <span class="plus">+</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </template>
+                    @php
+                        $subtotal = $item['qty'] * $item['price'];
+                        $total += $subtotal;
+                    @endphp
+                @endforeach
+            </div>
 
 
             {{-- Confirm Section --}}
             <div class="container">
                 <div class="row confirm-section">
                     <div class="col">
-                        <h5>Total Rp 90.000</h5>
+                        <h5>Total @formatPrice($total)</h5>
                     </div>
                     <div class="col">
                         <a id=addButton type="button" class="btn btn-success" data-bs-toggle="modal"
@@ -101,45 +114,33 @@
 
         @section('additional-js')
             <script src="{{ asset('js/plusMinus/plusMinus.js') }}"></script>
-
-            {{-- Read Local DB --}}
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                // Fungsi untuk mengirimkan permintaan Ajax saat quantity berubah
+                function updateCartItemQty(itemId, newQty) {
+                    $.ajax({
+                        url: "/cart/update/" + itemId, // Sesuaikan dengan URI yang benar
+                        type: "PUT",
+                        data: {
+                            qty: newQty
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Tambahkan token CSRF
+                        },
+                        success: function(response) {
+                            // Proses respon jika diperlukan
+                            // Contoh: Tampilkan notifikasi, perbarui tampilan, dll.
+                        },
+                        error: function(error) {
+                            // Tangani error jika diperlukan
+                        }
+                    });
+                }
 
-                    const cartListContainer = document.getElementById('cartList');
-
-                    function updateCartList() {
-                        cartListContainer.innerHTML = '';
-                        cartItems.forEach(item => {
-                            const cardTemplate = document.querySelector('#card-template').content.cloneNode(true);
-                            const cardImage = cardTemplate.querySelector('.card-img-top');
-                            const cardTitle = cardTemplate.querySelector('.card-title');
-                            const cardDescription = cardTemplate.querySelector('.card-text');
-                            const cardPrice = cardTemplate.querySelector('.harga');
-                            const trashIcon = cardTemplate.querySelector('.fa-trash-o');
-                            const qtyInput = cardTemplate.querySelector('.count');
-
-                            cardTitle.textContent = `${item.name}`;
-                            cardDescription.textContent = item.notes;
-                            cardPrice.textContent = `Rp ${item.price}`;
-                            qtyInput.value = item.qty;
-
-                            trashIcon.addEventListener('click', () => {
-                                const updatedCartItems = cartItems.filter(cartItem => cartItem.id !== item
-                                    .id);
-                                localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-                                cartItems.splice(cartItems.findIndex(cartItem => cartItem.id === item.id),
-                                    1);
-                                updateCartList();
-                            });
-
-                            cartListContainer.appendChild(cardTemplate);
-                        });
-                    }
-
-                    updateCartList();
-
+                // Merekam perubahan pada input quantity
+                $('.count').on('change', function() {
+                    var itemId = $(this).data('item-id');
+                    var newQty = $(this).val();
+                    updateCartItemQty(itemId, newQty);
                 });
             </script>
         @endsection

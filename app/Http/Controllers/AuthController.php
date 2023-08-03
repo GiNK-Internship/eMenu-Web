@@ -9,7 +9,7 @@ class AuthController extends Controller
 {
     public function index($id)
     {
-        $response = Http::get('http://192.168.1.111:8000/api/tables/' . $id . '/reservations/register');
+        $response = Http::get('http://192.168.1.103:8000/api/tables/' . $id . '/reservations/register');
         $data = $response->json();
 
         return view('registerpage.registerpage', ['data' => $data]);
@@ -21,14 +21,14 @@ class AuthController extends Controller
             'name' => 'required|max:255'
         ]);
 
-        $response = Http::post('http://192.168.1.111:8000/api/tables/' . $id . '/reservations', $request->all());
+        $response = Http::post('http://192.168.1.103:8000/api/tables/' . $id . '/reservations', $request->all());
 
         $data = $response->json();
 
         return view('welcomepage.auth', ['data' => $data]);
     }
 
-    public function login_request(Request $request)
+    public function login_request($id, Request $request)
     {
         $validated = $request->validate([
             'pin' => 'required|numeric',
@@ -38,17 +38,10 @@ class AuthController extends Controller
         $pin = $request->input('pin');
         $name = $request->input('name');
 
-        $response = Http::get('http://192.168.1.111:8000/api/reservations?pin=' . $pin);
+        $response = Http::get('http://192.168.1.103:8000/api/tables/reservations' . $id . '/login');
         $reservationData = $response->json();
 
-        $filteredReservations = array_filter($reservationData, function ($reservation) use ($name) {
-            return $reservation['name'] === $name;
-        });
+        return redirect()->route('homepage')->with('message', 'Login successful!');
 
-        if (count($filteredReservations) > 0) {
-            return redirect()->route('success-page')->with('message', 'Login successful!');
-        } else {
-            return back()->withErrors(['pin' => 'Invalid name or pin! Please try again.']);
-        }
     }
 }
