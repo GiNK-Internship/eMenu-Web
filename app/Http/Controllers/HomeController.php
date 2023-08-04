@@ -9,34 +9,41 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $response = Http::get('http://192.168.1.103:8000/api/items');
+        $response = Http::get('http://192.168.1.113:8000/api/items');
         $data = $response->json();
 
-        $responseCategory = Http::get('http://192.168.1.103:8000/api/categories');
+        $responseCategory = Http::get('http://192.168.1.113:8000/api/categories');
         $dataCategory = $responseCategory->json();
+
+        $responseTable = Http::get('http://192.168.1.113:8000/api/tables/' . $id . '/reservations');
+        $dataTable = $responseTable->json();
 
         return view('homepage.homepage', [
             'data' => $data,
-            'dataCategory' => $dataCategory
+            'dataCategory' => $dataCategory,
+            'dataTable' => $dataTable
         ]);
     }
 
     public function do_tambah_cart($id, Request $request)
     {
-        $response = Http::get("http://192.168.1.103:8000/api/items/{$id}");
+        $response = Http::get("http://192.168.1.113:8000/api/items/{$id}");
         $item = $response->json();
 
+        $table_id = $request->input('table_id');
+
+        $responseTable = Http::get('http://192.168.1.113:8000/api/tables/' . $table_id . '/reservations');
+        $dataTable = $responseTable->json();
+
         if (!$item) {
-            // Handle the case when the item with the given ID is not found
             return redirect()->route('homepage')->with('error', 'Item not found.');
         }
 
         $cartItems = Session::get('cartItems', []);
         $existingCartItem = null;
 
-        // Check if the item is already in the cart
         foreach ($cartItems as $index => $cartItem) {
             if ($cartItem['id'] == $item['id']) {
                 $existingCartItem = $cartItem;
@@ -48,33 +55,32 @@ class HomeController extends Controller
         $catatan = $request->input('catatan');
 
         if ($existingCartItem) {
-            // If the item already exists in the cart, update its quantity and catatan
             $existingCartItem['qty'] += $qty;
-            $existingCartItem['catatan'] = $catatan; // Save the catatan to the cart item
+            $existingCartItem['catatan'] = $catatan;
         } else {
-            // If the item is not in the cart, add it as a new item
             $item['qty'] = $qty;
-            $item['catatan'] = $catatan; // Save the catatan to the cart item
+            $item['catatan'] = $catatan;
             $cartItems[] = $item;
         }
 
-        // Update the cart items in the session
         Session::put('cartItems', $cartItems);
 
-        return redirect()->route('homepage')->with('success', 'Item added to cart.');
+        return redirect()->to('homepage/' . $dataTable['table_id'])->with('success', 'Item added to cart.');
     }
 
-    public function removeFromCart($id): RedirectResponse
+    public function removeFromCart($id)
     {
         $cartItems = Session::get('cartItems', []);
-        $updatedCartItems = array_filter($cartItems, function ($item) use ($id) {
-            return $item['id'] != $id;
-        });
+        $updatedCartItems = [];
+
+        foreach ($cartItems as $cartItem) {
+            if ($cartItem['id'] != $id) {
+                $updatedCartItems[] = $cartItem;
+            }
+        }
 
         Session::put('cartItems', $updatedCartItems);
 
-        return redirect()->route('cartpage')->with('success', 'Item removed from cart.');
+        return redirect()->back()->with('success', 'Item removed from cart.');
     }
-
-
 }

@@ -23,11 +23,11 @@ Route::get('/register/{id}', [AuthController::class, 'index'])->name('register/'
 Route::post('/register/process/{id}', [AuthController::class, 'process'])->name('register-process/');
 Route::post('/register/welcome', [AuthController::class, 'welcome_pin'])->name('register-welcome');
 
-Route::get('/detailpage/{id}', [DetailController::class, 'index'])->name('detailpage/');
+Route::post('/detailpage', [DetailController::class, 'index'])->name('detailpage');
 
-Route::get('/cartpage', [CartController::class, 'index'])->name('cartpage');
+Route::get('/cartpage/{id}', [CartController::class, 'index'])->name('cartpage/');
 
-Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');
+Route::get('/homepage/{id}', [HomeController::class, 'index'])->name('homepage/');
 Route::post('/cart/tambah/{id}', [HomeController::class, 'do_tambah_cart'])->where("id", "[0-9]+")->name('cart/tambah/');
 Route::delete('/cart/remove/{id}', [HomeController::class, 'removeFromCart'])->where("id", "[0-9]+")->name('cart/remove/');
 

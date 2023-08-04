@@ -2,6 +2,7 @@
 
 @section('additional-css')
     <link rel="stylesheet" href="{{ asset('css/cartpage/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cartpage/empty.css') }}">
     <link rel="stylesheet" href="{{ asset('css/detailpage/plusMinus.css') }}">
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -19,46 +20,52 @@
                     $total = 0;
                 @endphp
 
-                @foreach ($cartItems as $item)
-                    <div class="col">
-                        {{-- List Cart --}}
-                        <div class="card dark">
-                            <img src="{{ asset('assets/img/banner/pizza.jpg') }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="text-section">
-                                    <h5 class="card-title">{{ $item['name'] }}</h5>
-                                    <p class="card-text">{{ $item['catatan'] }}</p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <h5 class="harga">@formatPrice($item['price'])</h5>
+                @if (empty($cartItems))
+                    @include('cartpage.emptycartpage') {{-- Include the emptycartpage when cart is empty --}}
+                @else
+                    @foreach ($cartItems as $item)
+                        <div class="col">
+                            {{-- List Cart --}}
+                            <div class="card dark">
+                                <img src="{{ asset('assets/img/banner/pizza.jpg') }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <div class="text-section">
+                                        <h5 class="card-title">{{ $item['name'] }}</h5>
+                                        <p class="card-text">{{ $item['catatan'] }}</p>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="harga">@formatPrice($item['price'])</h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="cta-section">
-                                    <div>
-                                        <form action="{{ route('cart/remove/', ['id' => $item['id']]) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="delete-button">
-                                                <i class="fa fa-trash-o delete-icon" data-item-id="{{ $item['id'] }}"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div id="plusminus-container" class="qty mt-5 mt-auto">
-                                        <span class="minus">-</span>
-                                        <input type="number" class="count" name="qty"
-                                            data-item-id="{{ $item['id'] }}" value="{{ $item['qty'] }}">
-                                        <span class="plus">+</span>
+                                    <div class="cta-section">
+                                        <div>
+                                            <form action="{{ route('cart/remove/', ['id' => $item['id']]) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="delete-button">
+                                                    <i class="fa fa-trash-o delete-icon"
+                                                        data-item-id="{{ $item['id'] }}"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div id="plusminus-container" class="qty mt-5 mt-auto">
+                                            <span class="minus">-</span>
+                                            <input type="number" class="count" name="qty"
+                                                data-item-id="{{ $item['id'] }}" value="{{ $item['qty'] }}">
+                                            <span class="plus">+</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    @php
-                        $subtotal = $item['qty'] * $item['price'];
-                        $total += $subtotal;
-                    @endphp
-                @endforeach
+                        @php
+                            $subtotal = $item['qty'] * $item['price'];
+                            $total += $subtotal;
+                        @endphp
+                    @endforeach
+                @endif
             </div>
 
 
@@ -101,7 +108,7 @@
                                         <img src="assets/img/emptypage/checklist.svg" class="img-popup" alt="Checklist">
                                         <div class="image-caption">Pesanan diproses</div>
                                         <div class="image-caption2">Silahkan Tunggu Pesanan Anda</div>
-                                        <a id=addButton href="{{ route('homepage') }}" class="btn btn-warning">Kembali ke
+                                        <a id=addButton href="{{ route('homepage/',$dataTable['table_id']) }}" class="btn btn-warning">Kembali ke
                                             Home</a>
                                     </div>
                                 </div>

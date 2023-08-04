@@ -39,14 +39,14 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('homepage') }}"><i
+                            <a class="nav-link active" aria-current="page" href="{{ route('homepage/',$dataTable['table_id']) }}"><i
                                     class="fas fa-home me-1"></i>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('homepage') }}"><i class="fas fa-book-open me-1"></i>Menu Kami</a>
+                            <a class="nav-link active" href="{{ route('homepage/',$dataTable['table_id']) }}"><i class="fas fa-book-open me-1"></i>Menu Kami</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('historypage/', 1) }}"><i
+                            <a class="nav-link active" aria-current="page" href="{{ route('historypage/', $dataTable['table_id']) }}"><i
                                     class="fas fa-history me-1"></i>Riwayat Saya</a>
                         </li>
                     </ul>

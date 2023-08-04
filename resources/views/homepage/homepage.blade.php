@@ -15,11 +15,11 @@
             <div class="row">
                 <div class="col d-flex flex-column">
                     <h2 id=welcome>Selamat Datang!</h2>
-                    <p id=name>Bayu Nindioko</p>
+                    <p id=name>{{ $dataTable['name'] }}</p>
                 </div>
                 <div class="col d-flex align-items-end justify-content-end">
                     <div class="circle">
-                        <h2 id=noTable>1</h2>
+                        <h2 id=noTable>{{ $dataTable['table']['number'] }}</h2>
                     </div>
                 </div>
             </div>
@@ -99,8 +99,13 @@
                             <h6 class="card-subtitle mb-2 text-body-secondary">{{ $item['deskripsi'] }}</h6>
                             <h5 class="card-text">@formatPrice($item['price'])</h5>
                             <div style="display: flex; justify-content: center;">
-                                <a id="addButton" href="{{ route('detailpage/', $item['id']) }}"
-                                    class="btn btn-success">Tambah</a>
+                                <form id="addButtonForm" action="{{ route('detailpage') }}" method="post"
+                                    style="display: inline;">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $item['id'] }}">
+                                    <input type="hidden" name="table_id" value="{{ $dataTable['table_id'] }}">
+                                    <button type="submit" class="btn btn-success">Tambah</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -124,8 +129,14 @@
                                             {{ $item['deskripsi'] }}</h6>
                                         <h5 class="card-text">@formatPrice($item['price'])</h5>
                                         <div style="display: flex; justify-content: center;">
-                                            <a id="addButton" href="{{ route('detailpage/', $item['id']) }}"
-                                                class="btn btn-success">Tambah</a>
+                                            <form id="addButtonForm" action="{{ route('detailpage') }}" method="post"
+                                                style="display: inline;">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $item['id'] }}">
+                                                <input type="hidden" name="table_id"
+                                                    value="{{ $dataTable['table_id'] }}">
+                                                <button type="submit" class="btn btn-success">Tambah</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -138,13 +149,22 @@
     </div>
 
     {{-- Floating Button --}}
-    <a href="{{ route('cartpage') }}" class="float">
-        <i class="fa fa-shopping-cart my-float" aria-hidden="true">
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                1
-                <span class="visually-hidden">unread messages</span>
-            </span>
-        </i>
+    <a href="{{ route('cartpage/', $dataTable['table_id']) }}" class="float">
+        @php
+            $cartItems = Session::get('cartItems', []);
+            $total = 0;
+        @endphp
+
+        @if (empty($cartItems))
+            <i class="fa fa-shopping-cart my-float" aria-hidden="true"></i>
+        @else
+            <i class="fa fa-shopping-cart my-float" aria-hidden="true">
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    *
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </i>
+        @endif
     </a>
 @endsection
 

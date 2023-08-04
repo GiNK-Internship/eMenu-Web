@@ -24,12 +24,7 @@
             </div>
             <div class="w-100"></div>
             <div class="col text-center">
-                <form method="POST" action="{{ route('authcheck/', $data['id']) }}">
-                    @csrf
-                    <input name="pin" hidden type="text" value="{{ $data['pin'] }}">
-                    <input name="name" hidden type="text" value="{{ $data['name'] }}">
-                    <button type="submit" id=addButton class="btn btn-success">Masuk</button>
-                </form>
+                    <a href="{{ route('homepage/', $data['table_id']) }}" id=addButton class="btn btn-success">Masuk</a>
             </div>
         </div>
     </div>
