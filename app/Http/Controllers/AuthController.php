@@ -9,8 +9,10 @@ class AuthController extends Controller
 {
     public function index($id)
     {
-        $response = Http::get('http://192.168.1.113:8000/api/tables/' . $id . '/reservations/register');
+        $response = Http::get('http://192.168.1.111:8000/api/tables/' . $id . '/reservations/register');
         $data = $response->json();
+
+        session(['table_id' => $id]);
 
         return view('registerpage.registerpage', ['data' => $data]);
     }
@@ -21,9 +23,11 @@ class AuthController extends Controller
             'name' => 'required|max:255'
         ]);
 
-        $response = Http::post('http://192.168.1.113:8000/api/tables/' . $id . '/reservations', $request->all());
+        $response = Http::post('http://192.168.1.111:8000/api/tables/' . $id . '/reservations', $request->all());
 
         $data = $response->json();
+
+        session(['table_id' => $id]);
 
         return view('welcomepage.auth', ['data' => $data]);
     }
@@ -38,10 +42,11 @@ class AuthController extends Controller
         $pin = $request->input('pin');
         $name = $request->input('name');
 
-        $response = Http::get('http://192.168.1.113:8000/api/tables/reservations' . $id . '/login');
+        $response = Http::get('http://192.168.1.111:8000/api/tables/reservations' . $id . '/login');
         $reservationData = $response->json();
 
-        return redirect()->route('homepage')->with('message', 'Login successful!');
+        session(['table_id' => $id]);
 
+        return redirect()->route('homepage')->with('message', 'Login successful!');
     }
 }

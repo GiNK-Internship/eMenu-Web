@@ -5,19 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class HomeController extends Controller
 {
     public function index($id)
     {
-        $response = Http::get('http://192.168.1.113:8000/api/items');
+        $tableIdInSession = Session::get('table_id');
+        if (!$tableIdInSession || $tableIdInSession !== $id) {
+            return redirect()->route('register/', ['id' => $id])->with('error', 'You are not authorized to access this table.');
+        }
+
+        $response = Http::get('http://192.168.1.111:8000/api/items');
         $data = $response->json();
 
-        $responseCategory = Http::get('http://192.168.1.113:8000/api/categories');
+        $responseCategory = Http::get('http://192.168.1.111:8000/api/categories');
         $dataCategory = $responseCategory->json();
 
-        $responseTable = Http::get('http://192.168.1.113:8000/api/tables/' . $id . '/reservations');
+        $responseTable = Http::get('http://192.168.1.111:8000/api/tables/' . $id . '/reservations');
         $dataTable = $responseTable->json();
 
         return view('homepage.homepage', [
@@ -29,12 +35,12 @@ class HomeController extends Controller
 
     public function do_tambah_cart($id, Request $request)
     {
-        $response = Http::get("http://192.168.1.113:8000/api/items/{$id}");
+        $response = Http::get("http://192.168.1.111:8000/api/items/{$id}");
         $item = $response->json();
 
         $table_id = $request->input('table_id');
 
-        $responseTable = Http::get('http://192.168.1.113:8000/api/tables/' . $table_id . '/reservations');
+        $responseTable = Http::get('http://192.168.1.111:8000/api/tables/' . $table_id . '/reservations');
         $dataTable = $responseTable->json();
 
         if (!$item) {
@@ -82,5 +88,40 @@ class HomeController extends Controller
         Session::put('cartItems', $updatedCartItems);
 
         return redirect()->back()->with('success', 'Item removed from cart.');
+    }
+
+    public function submitOrder(Request $request)
+    {
+        $tableIdInSession = Session::get('table_id');
+        $responseTable = Http::get('http://192.168.1.111:8000/api/tables/' . $tableIdInSession . '/reservations');
+        $dataTable = $responseTable->json();
+
+        $reservationSession = $dataTable['id'];
+
+        $cartItems = Session::get('cartItems', []);
+
+        $orderData = [
+            'reservation_id' => $reservationSession,
+            'items' => []
+        ];
+
+        foreach ($cartItems as $item) {
+            $orderData['items'][] = [
+                'item_id' => $item['id'],
+                'quantity_order' => $item['qty'],
+                'price' => $item['price'],
+                'name' => $item['name'],
+                'notes' => $item['catatan'],
+            ];
+        }
+
+        $response = Http::post('http://192.168.1.111:8000/api/order/store', $orderData);
+
+        if ($response->successful()) {
+            Session::forget('cartItems');
+
+            // Redirect to the homepage with the correct table ID
+            return redirect()->route('homepage/', ['id' => $tableIdInSession])->with('success', 'Order submitted successfully.');
+        }
     }
 }

@@ -27,7 +27,7 @@
                         <div class="col">
                             {{-- List Cart --}}
                             <div class="card dark">
-                                <img src="{{ asset('assets/img/banner/pizza.jpg') }}" class="card-img-top" alt="...">
+                                <img src="{{ $item['foto'] }}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <div class="text-section">
                                         <h5 class="card-title">{{ $item['name'] }}</h5>
@@ -89,11 +89,16 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="confirm" src="assets/img/emptypage/confirm.svg" class="img-popup"
+                                        <img id="confirm" src="../assets/img/emptypage/confirm.svg" class="img-popup"
                                             alt="Checklist">
                                         <div class="image-caption22">Apakah Kamu Ingin Memesannya?</div>
-                                        <a id="addButton" type="button" class="btn btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">Ya, Pesan Sekarang</a>
+                                        <form action="{{ route('submit-order') }}" method="post">
+                                            @csrf
+                                            <button id="addButton" type="submit" class="btn btn-success" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">Ya, Pesan Sekarang</button>
+                                        </form>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +110,7 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-body">
-                                        <img src="assets/img/emptypage/checklist.svg" class="img-popup" alt="Checklist">
+                                        <img src="../assets/img/emptypage/checklist.svg" class="img-popup" alt="Checklist">
                                         <div class="image-caption">Pesanan diproses</div>
                                         <div class="image-caption2">Silahkan Tunggu Pesanan Anda</div>
                                         <a id=addButton href="{{ route('homepage/',$dataTable['table_id']) }}" class="btn btn-warning">Kembali ke

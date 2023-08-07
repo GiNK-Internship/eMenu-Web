@@ -16,7 +16,7 @@
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <img src="../assets/img/banner/burger.jpg" class="d-block w-100" alt="..." />
+                <img src="{{ $data['foto'] }}" class="d-block w-100" alt="..." />
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
             <div class="col">
                 <form method="POST" action="{{ route('cart/tambah/', $data['id']) }}">
                     @csrf
-                    <input name="table_id" hidden type="text" value="{{$dataTable['table_id']}}">
+                    <input name="table_id" hidden type="text" value="{{ $dataTable['table_id'] }}">
                     <input id="qtyHidden" name="qty" hidden type="text" value="">
                     <input id="catatanHidden" name="catatan" hidden type="text" value="">
                     <button id="addToCartButton" class="btn btn-success">Tambahkan ke Keranjang</button>

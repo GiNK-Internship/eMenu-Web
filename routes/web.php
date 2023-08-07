@@ -30,6 +30,7 @@ Route::get('/cartpage/{id}', [CartController::class, 'index'])->name('cartpage/'
 Route::get('/homepage/{id}', [HomeController::class, 'index'])->name('homepage/');
 Route::post('/cart/tambah/{id}', [HomeController::class, 'do_tambah_cart'])->where("id", "[0-9]+")->name('cart/tambah/');
 Route::delete('/cart/remove/{id}', [HomeController::class, 'removeFromCart'])->where("id", "[0-9]+")->name('cart/remove/');
+Route::post('submit-order', [HomeController::class, 'submitOrder'])->name('submit-order');
 
 Route::get('/historypage/{id}', [HistoryController::class, 'index'])->name('historypage/');
 
