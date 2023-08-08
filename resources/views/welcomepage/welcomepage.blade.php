@@ -22,7 +22,7 @@
             <div class="w-100"></div>
             <div class="col">
                 <div class="text-end">
-                    <img src="assets/img/logo.svg" alt="Logo">
+                    <img src="../assets/img/logo.svg" alt="Logo">
                 </div>
             </div>
             <div class="col">
@@ -36,23 +36,55 @@
                 <h3>Masukkan Kode PIN Anda</h3>
             </div>
             <div class="w-100"></div>
-            <div class="col">
-                <div class="pin-code">
-                    <input type="number" maxlength="1" autofocus>
-                    <input type="number" maxlength="1">
-                    <input type="number" maxlength="1">
-                    <input type="number" maxlength="1">
+            <form action="{{ route('login-process/', $data['id']) }}" method="POST">
+                @csrf
+                <div class="col">
+                    <input type="text" name="name" hidden value="{{$data['name']}}">
+                    <input type="text" name="table_id" hidden value="{{$data['table_id']}}">
+                    <div class="pin-code">
+                        <input type="number" maxlength="1" class="pin-input" autofocus>
+                        <input type="number" maxlength="1" class="pin-input">
+                        <input type="number" maxlength="1" class="pin-input">
+                        <input type="number" maxlength="1" class="pin-input">
+                    </div>
+                    <input type="hidden" name="pin" id="combined-pin-input">
                 </div>
-            </div>
-            <div class="w-100"></div>
-            <div class="col text-center">
-                <a id=addButton href="{{ route('homepage') }}" class="btn btn-success">Masuk</a>
-            </div>
+                <div class="w-100"></div>
+                <div class="col text-center">
+                    <button type="submit" id=addButton  class="btn btn-success">Masuk</button>
+                </div>
+            </form>
         </div>
 
         <script src="{{ asset('js/bootstrap.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/pincode/pincode.js') }}"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const pinInputs = document.querySelectorAll(".pin-input");
+                const combinedPinInput = document.getElementById("combined-pin-input");
+
+                pinInputs.forEach(function(input) {
+                    input.addEventListener("input", function() {
+                        let combinedPin = "";
+                        pinInputs.forEach(function(pinInput) {
+                            combinedPin += pinInput.value;
+                        });
+                        combinedPinInput.value = combinedPin;
+                    });
+                });
+
+                const form = document.querySelector("form");
+                form.addEventListener("submit", function() {
+                    let combinedPin = "";
+                    pinInputs.forEach(function(pinInput) {
+                        combinedPin += pinInput.value;
+                    });
+                    combinedPinInput.value = combinedPin;
+                });
+            });
+        </script>
+
 </body>
 
 </html>

@@ -4,12 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
     public function index($id)
     {
-        $response = Http::get('http://192.168.1.111:8000/api/tables/' . $id . '/reservations/register');
+        $responseRes = Http::get('http://192.168.1.113:8000/api/tables/' . $id . '/reservations');
+        $dataRes = $responseRes->json();
+
+        if (isset($dataRes['status']) && $dataRes['status'] == 'Process') {
+            session(['table_id' => $id]);
+            return view('welcomepage.welcomepage', ['data' => $dataRes]);
+        }
+
+        $response = Http::get('http://192.168.1.113:8000/api/tables/' . $id . '/reservations/register');
         $data = $response->json();
 
         session(['table_id' => $id]);
@@ -23,7 +32,7 @@ class AuthController extends Controller
             'name' => 'required|max:255'
         ]);
 
-        $response = Http::post('http://192.168.1.111:8000/api/tables/' . $id . '/reservations', $request->all());
+        $response = Http::post('http://192.168.1.113:8000/api/tables/' . $id . '/reservations', $request->all());
 
         $data = $response->json();
 
@@ -41,12 +50,25 @@ class AuthController extends Controller
 
         $pin = $request->input('pin');
         $name = $request->input('name');
+        $table_id = $request->input('table_id');
 
-        $response = Http::get('http://192.168.1.111:8000/api/tables/reservations' . $id . '/login');
-        $reservationData = $response->json();
+        $response = Http::post('http://192.168.1.113:8000/api/tables/reservations/' . $id . '/login', $request->all());
 
-        session(['table_id' => $id]);
+        if ($response->successful()) {
+            session(['table_id' => $table_id]);
+            return redirect()->to('homepage/' . $table_id)->with('message', 'Login successful!');
+        } else {
+            return back()->withInput()->with('error', 'Login failed. Please try again.');
+        }
+    }
 
-        return redirect()->route('homepage')->with('message', 'Login successful!');
+    public function welcome_pin()
+    {
+        $tableIdInSession = Session::get('table_id');
+
+        $responseRes = Http::get('http://192.168.1.113:8000/api/tables/' . $tableIdInSession . '/reservations');
+        $data = $responseRes->json();
+
+        return view('welcomepage.welcomepage', ['data' => $data]);
     }
 }

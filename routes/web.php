@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/register/{id}', [AuthController::class, 'index'])->name('register/');
 Route::post('/register/process/{id}', [AuthController::class, 'process'])->name('register-process/');
-Route::post('/register/welcome', [AuthController::class, 'welcome_pin'])->name('register-welcome');
+Route::get('/register/welcome', [AuthController::class, 'welcome_pin'])->name('register-welcome');
+Route::post('/login/process/{id}', [AuthController::class, 'login_request'])->name('login-process/');
 
 Route::post('/detailpage', [DetailController::class, 'index'])->name('detailpage');
 
