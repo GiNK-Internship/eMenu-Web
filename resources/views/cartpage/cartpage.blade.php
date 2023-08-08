@@ -113,8 +113,6 @@
                                         <img src="../assets/img/emptypage/checklist.svg" class="img-popup" alt="Checklist">
                                         <div class="image-caption">Pesanan diproses</div>
                                         <div class="image-caption2">Silahkan Tunggu Pesanan Anda</div>
-                                        <a id=addButton href="{{ route('homepage/',$dataTable['table_id']) }}" class="btn btn-warning">Kembali ke
-                                            Home</a>
                                     </div>
                                 </div>
                             </div>

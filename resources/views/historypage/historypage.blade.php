@@ -23,7 +23,7 @@
                     <div class="col">
                         {{-- List Cart --}}
                         <div class="card dark">
-                            <img src="../assets/img/banner/pizza.jpg" class="card-img-top" alt="...">
+                            <img src="{{ $item['item']['foto'] }}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <div class="text-section">
                                     <h5 class="card-title">{{ $item['name'] }}</h5>
