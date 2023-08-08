@@ -18,7 +18,7 @@
             @php
                 $count = 0;
             @endphp
-            @foreach ($data[0]['items'] as $item)
+            @foreach ($data[0]['order_items'] as $item)
                 @if ($item['quantity_order'] != $item['quantity_delivered'])
                     <div class="col">
                         {{-- List Cart --}}

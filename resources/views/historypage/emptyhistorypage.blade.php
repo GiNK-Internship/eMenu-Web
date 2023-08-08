@@ -20,7 +20,7 @@
                 <img src="{{ asset('assets/img/emptypage/emptycart.svg') }}" alt="emptyicon">
             </div>
             <p>Anda Belum Memesan Apapun</p>
-            <a id=addButton href="{{ route('homepage') }}" class="btn btn-warning">Pesan Sekarang</a>
+            <a id=addButton href="{{ route('homepage/',$dataTable['table_id']) }}" class="btn btn-warning">Pesan Sekarang</a>
         </div>
     @endsection
 
