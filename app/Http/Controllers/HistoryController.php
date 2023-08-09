@@ -9,10 +9,10 @@ class HistoryController extends Controller
 {
     public function index($id)
     {
-        $response = Http::get('192.168.1.113:8000/api/tables/' . $id . '/items');
+        $response = Http::get('192.168.1.110:8000/api/tables/' . $id . '/items');
         $data = $response->json();
 
-        $responseTable = Http::get('http://192.168.1.113:8000/api/tables/' . $id . '/reservations');
+        $responseTable = Http::get('http://192.168.1.110:8000/api/tables/' . $id . '/reservations');
         $dataTable = $responseTable->json();
 
         return view('historypage.historypage', [

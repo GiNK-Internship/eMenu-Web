@@ -290,3 +290,11 @@
     border: none;
     background: transparent;
 }
+
+@media (max-width: 360px) {
+    .delete-button {
+        margin-right: 28px;
+        border: none;
+        background: transparent;
+    }
+}
