@@ -28,6 +28,7 @@
                                 <div class="text-section">
                                     <h5 class="card-title">{{ $item['name'] }}</h5>
                                     <p class="card-text">{{ $item['notes'] }}</p>
+                                    <span>Qty : {{ $item['quantity_order'] }}</span>
                                     <div class="row">
                                         <div class="col">
                                             <h5>@formatPrice($item['price'])</h5>
